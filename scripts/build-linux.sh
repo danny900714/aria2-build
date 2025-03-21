@@ -25,7 +25,7 @@ sudo apt-get install -y \
     libcppunit-dev \
     libxml2-dev \
     libgcrypt-dev \
-    libssl-dev \
+    libssl-dev:arm64 \
     libgnutls28-dev \
     libc-ares-dev \
     libsqlite3-dev \

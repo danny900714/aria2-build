@@ -1,0 +1,114 @@
+name: Build Static aria2
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'aria2 version'
+        required: true
+        default: '1.37.0'
+        type: string
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Linux builds
+          - os: ubuntu-latest
+            platform: linux
+            arch: amd64
+            artifact_name: aria2-linux-amd64
+          - os: ubuntu-latest
+            platform: linux
+            arch: arm64
+            artifact_name: aria2-linux-arm64
+          
+          # macOS builds
+          - os: macos-latest
+            platform: macos
+            arch: amd64
+            artifact_name: aria2-macos-amd64
+          - os: macos-latest
+            platform: macos
+            arch: arm64
+            artifact_name: aria2-macos-arm64
+          
+          # Windows builds
+          - os: windows-latest
+            platform: windows
+            arch: amd64
+            artifact_name: aria2-windows-amd64
+          - os: windows-latest
+            platform: windows
+            arch: arm64
+            artifact_name: aria2-windows-arm64
+
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up build environment for Linux
+        if: matrix.platform == 'linux'
+        run: |
+          chmod +x ./scripts/build-linux.sh
+          
+      - name: Set up build environment for macOS
+        if: matrix.platform == 'macos'
+        run: |
+          chmod +x ./scripts/build-macos.sh
+          
+      - name: Set up build environment for Windows
+        if: matrix.platform == 'windows'
+        run: |
+          git config --system core.longpaths true
+
+      - name: Build aria2 for Linux
+        if: matrix.platform == 'linux'
+        run: ./scripts/build-linux.sh ${{ github.event.inputs.version }} ${{ matrix.arch }}
+        
+      - name: Build aria2 for macOS
+        if: matrix.platform == 'macos'
+        run: ./scripts/build-macos.sh ${{ github.event.inputs.version }} ${{ matrix.arch }}
+        
+      - name: Build aria2 for Windows
+        if: matrix.platform == 'windows'
+        shell: bash
+        run: ./scripts/build-windows.sh ${{ github.event.inputs.version }} ${{ matrix.arch }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: build/aria2*
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: aria2 ${{ github.event.inputs.version }}
+          tag_name: v${{ github.event.inputs.version }}
+          draft: false
+          prerelease: false
+          files: |
+            artifacts/aria2-linux-amd64/aria2*
+            artifacts/aria2-linux-arm64/aria2*
+            artifacts/aria2-macos-amd64/aria2*
+            artifacts/aria2-macos-arm64/aria2*
+            artifacts/aria2-windows-amd64/aria2*
+            artifacts/aria2-windows-arm64/aria2*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

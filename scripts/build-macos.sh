@@ -3,7 +3,6 @@ set -e
 
 # Get parameters
 VERSION=$1
-ARCH=$2
 
 echo "Building aria2 v${VERSION} for macOS ${ARCH}"
 
@@ -28,16 +27,16 @@ brew install \
     expat
 
 # Set up environment for cross-compilation if needed
-if [ "$ARCH" = "arm64" ]; then
-    export CFLAGS="-arch arm64"
-    export CXXFLAGS="-arch arm64"
-    export LDFLAGS="-arch arm64"
-    EXTRA_CONFIG="--host=aarch64-apple-darwin"
-else
-    export CFLAGS="-arch x86_64"
-    export CXXFLAGS="-arch x86_64"
-    export LDFLAGS="-arch x86_64"
-fi
+# if [ "$ARCH" = "arm64" ]; then
+#     export CFLAGS="-arch arm64"
+#     export CXXFLAGS="-arch arm64"
+#     export LDFLAGS="-arch arm64"
+#     EXTRA_CONFIG="--host=aarch64-apple-darwin"
+# else
+#     export CFLAGS="-arch x86_64"
+#     export CXXFLAGS="-arch x86_64"
+#     export LDFLAGS="-arch x86_64"
+# fi
 
 # Set PKG_CONFIG_PATH for Homebrew packages
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@3/lib/pkgconfig:/usr/local/opt/sqlite/lib/pkgconfig:/usr/local/opt/libssh2/lib/pkgconfig"

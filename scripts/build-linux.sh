@@ -3,7 +3,6 @@ set -e
 
 # Get parameters
 VERSION=$1
-ARCH=$2
 
 echo "Building aria2 v${VERSION} for Linux ${ARCH}"
 
@@ -12,8 +11,8 @@ mkdir -p build
 cd build
 
 # Install dependencies
-sudo apt-get update
-sudo apt-get install -y \
+sudo apt update
+sudo apt install -y \
     build-essential \
     git \
     autoconf \
@@ -25,24 +24,13 @@ sudo apt-get install -y \
     libcppunit-dev \
     libxml2-dev \
     libgcrypt-dev \
-    libssl-dev:arm64 \
+    libssl-dev \
     libgnutls28-dev \
     libc-ares-dev \
     libsqlite3-dev \
     zlib1g-dev \
     libssh2-1-dev \
     libexpat1-dev
-
-# For ARM64 cross-compilation
-if [ "$ARCH" = "arm64" ]; then
-    sudo apt-get install -y \
-        gcc-aarch64-linux-gnu \
-        g++-aarch64-linux-gnu
-    
-    export CC=aarch64-linux-gnu-gcc
-    export CXX=aarch64-linux-gnu-g++
-    EXTRA_CONFIG="--host=aarch64-linux-gnu"
-fi
 
 # Download aria2 source
 wget "https://github.com/aria2/aria2/releases/download/release-${VERSION}/aria2-${VERSION}.tar.gz"

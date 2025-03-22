@@ -3,21 +3,20 @@ set -e
 
 # Get parameters
 VERSION=$1
-ARCH=$2
 
-echo "Building aria2 v${VERSION} for Windows ${ARCH}"
+echo "Building aria2 v${VERSION} for Windows"
 
 # Set up MSYS2 environment
-if [ "$ARCH" = "amd64" ]; then
-    MSYSTEM=MINGW64
-    MSYS2_ARCH=x86_64
-elif [ "$ARCH" = "arm64" ]; then
-    MSYSTEM=CLANGARM64
-    MSYS2_ARCH=aarch64
-else
-    echo "Unsupported architecture: ${ARCH}"
-    exit 1
-fi
+# if [ "$ARCH" = "amd64" ]; then
+#     MSYSTEM=MINGW64
+#     MSYS2_ARCH=x86_64
+# elif [ "$ARCH" = "arm64" ]; then
+#     MSYSTEM=CLANGARM64
+#     MSYS2_ARCH=aarch64
+# else
+#     echo "Unsupported architecture: ${ARCH}"
+#     exit 1
+# fi
 
 # Create build directory
 mkdir -p build

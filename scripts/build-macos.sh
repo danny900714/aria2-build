@@ -17,7 +17,8 @@ brew install \
     automake \
     libtool \
     cppunit \
-    zlib
+    zlib \
+    libxml2
 
 # Set up environment for cross-compilation if needed
 # if [ "$ARCH" = "arm64" ]; then
@@ -44,7 +45,6 @@ cd "aria2-${VERSION}"
     ARIA2_STATIC=yes \
     --prefix=/usr/local \
     --enable-static \
-    --without-libxml2 \
     --with-libcares \
     --with-libssh2 \
     --with-sqlite3 \
@@ -57,8 +57,8 @@ make -j$(sysctl -n hw.ncpu)
 strip src/aria2c
 
 # Copy binary to output directory
-cd ../..
-mkdir -p build
-cp "build/aria2-${VERSION}/src/aria2c" "build/aria2-${VERSION}-macos"
+# cd ../..
+# mkdir -p build
+# cp "build/aria2-${VERSION}/src/aria2c" "build/aria2-${VERSION}-macos"
 
-echo "Build completed: build/aria2-${VERSION}-macos"
+# echo "Build completed: build/aria2-${VERSION}-macos"

@@ -47,7 +47,7 @@ cd "aria2-${VERSION}"
     --without-gnutls \
     --with-openssl \
     --without-libgcrypt \
-    --with-libcares \
+    --without-libcares \
     --with-libssh2 \
     --with-sqlite3 \
     --with-libz

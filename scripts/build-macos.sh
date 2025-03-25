@@ -18,8 +18,7 @@ brew install \
     libtool \
     cppunit \
     zlib \
-    libxml2 \
-    libuv
+    libxml2
 
 # Set up environment for cross-compilation if needed
 # if [ "$ARCH" = "arm64" ]; then
@@ -45,7 +44,6 @@ cd "aria2-${VERSION}"
 ./configure \
     ARIA2_STATIC=yes \
     --enable-static \
-    --enable-epoll \
     --with-libuv \
 
 # Build

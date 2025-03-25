@@ -18,7 +18,8 @@ brew install \
     libtool \
     cppunit \
     zlib \
-    libxml2
+    libxml2 \
+    libuv
 
 # Set up environment for cross-compilation if needed
 # if [ "$ARCH" = "arm64" ]; then
@@ -43,12 +44,9 @@ cd "aria2-${VERSION}"
 # Configure with static options
 ./configure \
     ARIA2_STATIC=yes \
-    --prefix=/usr/local \
     --enable-static \
-    --with-libcares \
-    --with-libssh2 \
-    --with-sqlite3 \
-    --with-libz
+    --enable-epoll \
+    --with-libuv \
 
 # Build
 make -j$(sysctl -n hw.ncpu)

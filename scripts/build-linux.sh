@@ -30,7 +30,8 @@ sudo apt install -y \
     libsqlite3-dev \
     zlib1g-dev \
     libssh2-1-dev \
-    libexpat1-dev
+    libexpat1-dev \
+    liblzma-dev
 
 # Download aria2 source
 wget "https://github.com/aria2/aria2/releases/download/release-${VERSION}/aria2-${VERSION}.tar.gz"
@@ -40,7 +41,6 @@ cd "aria2-${VERSION}"
 # Configure with static options
 ./configure \
     ARIA2_STATIC=yes \
-    --prefix=/usr \
     --enable-static \
     --without-gnutls \
     --with-openssl \

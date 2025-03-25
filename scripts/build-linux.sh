@@ -41,9 +41,7 @@ cd "aria2-${VERSION}"
 ./configure \
     ARIA2_STATIC=yes \
     --prefix=/usr \
-    --disable-shared \
     --enable-static \
-    --without-libxml2 \
     --without-gnutls \
     --with-openssl \
     --without-libgcrypt \
@@ -56,8 +54,4 @@ cd "aria2-${VERSION}"
 make -j$(nproc)
 
 # Strip binary to reduce size
-if [ "$ARCH" = "arm64" ]; then
-    aarch64-linux-gnu-strip src/aria2c
-else
-    strip src/aria2c
-fi
+strip src/aria2c

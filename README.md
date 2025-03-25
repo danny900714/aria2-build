@@ -6,7 +6,6 @@ Cross-platform build for download utility aria2 using GitHub Actions.
 
 This repository contains GitHub Actions workflows and build scripts to create static builds of [aria2](https://github.com/aria2/aria2) for multiple platforms and architectures:
 
-- Windows (amd64, arm64)
 - Linux (amd64, arm64)
 - macOS (amd64, arm64)
 
@@ -47,7 +46,6 @@ The repository contains three build scripts:
 
 - `scripts/build-linux.sh`: Builds aria2 for Linux (amd64, arm64)
 - `scripts/build-macos.sh`: Builds aria2 for macOS (amd64, arm64)
-- `scripts/build-windows.sh`: Builds aria2 for Windows (amd64, arm64)
 
 These scripts are used by the GitHub Actions workflow but can also be run locally if you have the necessary build environment set up.
 

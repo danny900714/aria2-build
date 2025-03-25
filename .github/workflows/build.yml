@@ -23,8 +23,6 @@ jobs:
             artifact_name: aria2c-aarch64-apple-darwin
           - os: macos-13
             artifact_name: aria2c-x86_64-apple-darwin
-          - os: windows-latest
-            artifact_name: aria2c-x86_64-pc-windows-gnu
 
     runs-on: ${{ matrix.os }}
     
@@ -54,11 +52,6 @@ jobs:
       - name: Build aria2 for macOS
         if: runner.os == 'macOS'
         run: ./scripts/build-macos.sh ${{ github.event.inputs.version }}
-        
-      - name: Build aria2 for Windows
-        if: runner.os == 'Windows'
-        shell: bash
-        run: ./scripts/build-windows.sh ${{ github.event.inputs.version }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

@@ -4,7 +4,7 @@ set -e
 # Get parameters
 VERSION=$1
 
-echo "Building aria2 v${VERSION} for Linux ${ARCH}"
+echo "Building aria2 v${VERSION} for Linux"
 
 # Create build directory
 mkdir -p build
@@ -39,7 +39,7 @@ cd "aria2-${VERSION}"
 
 # Configure with static options
 ./configure \
-    ${EXTRA_CONFIG} \
+    ARIA2_STATIC=yes \
     --prefix=/usr \
     --disable-shared \
     --enable-static \
@@ -61,10 +61,3 @@ if [ "$ARCH" = "arm64" ]; then
 else
     strip src/aria2c
 fi
-
-# Copy binary to output directory
-cd ../..
-mkdir -p build
-cp "build/aria2-${VERSION}/src/aria2c" "build/aria2-${VERSION}-linux-${ARCH}"
-
-echo "Build completed: build/aria2-${VERSION}-linux-${ARCH}"

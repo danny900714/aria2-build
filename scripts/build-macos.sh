@@ -29,7 +29,7 @@ cd "aria2-${VERSION}"
 ./configure \
     ARIA2_STATIC=yes \
     --enable-static \
-    --with-libuv \
+    --with-libuv
 
 # Build
 make -j$(sysctl -n hw.ncpu)

@@ -34,9 +34,8 @@ sudo apt install -y \
     liblzma-dev
 
 # Soft link libcares static library
-arch=$(uname -m)
-lib_path=$(find /usr/lib -type d | grep "$arch-linux-gnu" | head -n 1)
-sudo ln -s "$lib_path/libcares_static.a" "$lib_path/libcares.a"
+echo "Host architecture: $(arch)"
+sudo ln -s /usr/lib/$(arch)-linux-gnu/libcares_static.a /usr/lib/$(arch)-linux-gnu/libcares.a
 
 # Download aria2 source
 wget "https://github.com/aria2/aria2/releases/download/release-${VERSION}/aria2-${VERSION}.tar.gz"
@@ -49,10 +48,7 @@ cd "aria2-${VERSION}"
     --enable-static \
     --without-gnutls \
     --with-openssl \
-    --without-libgcrypt \
-    --with-libssh2 \
-    --with-sqlite3 \
-    --with-libz
+    --without-libgcrypt
 
 # Build
 make -j$(nproc)

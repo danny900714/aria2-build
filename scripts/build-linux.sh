@@ -33,11 +33,10 @@ sudo apt install -y \
     libexpat1-dev \
     liblzma-dev
 
-# Verify libc-ares-dev location
-find /usr/lib /usr/lib/x86_64-linux-gnu -name "libcares*"
-
 # Soft link libcares static library
-sudo ln -s /usr/lib/x86_64-linux-gnu/libcares_static.a /usr/lib/x86_64-linux-gnu/libcares.a
+arch=$(uname -m)
+lib_path=$(find /usr/lib -type d | grep "$arch-linux-gnu" | head -n 1)
+sudo ln -s "$lib_path/libcares_static.a" "$lib_path/libcares.a"
 
 # Download aria2 source
 wget "https://github.com/aria2/aria2/releases/download/release-${VERSION}/aria2-${VERSION}.tar.gz"

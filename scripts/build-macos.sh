@@ -41,7 +41,7 @@ cd "aria2-${VERSION}"
 
 # Configure with static options
 ./configure \
-    ${EXTRA_CONFIG} \
+    ARIA2_STATIC=yes \
     --prefix=/usr/local \
     --enable-static \
     --without-libxml2 \

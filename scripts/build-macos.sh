@@ -16,15 +16,8 @@ brew install \
     autoconf \
     automake \
     libtool \
-    pkg-config \
     cppunit \
-    openssl@3 \
-    c-ares \
-    libssh2 \
-    sqlite \
-    zlib \
-    gettext \
-    expat
+    zlib
 
 # Set up environment for cross-compilation if needed
 # if [ "$ARCH" = "arm64" ]; then
@@ -39,7 +32,7 @@ brew install \
 # fi
 
 # Set PKG_CONFIG_PATH for Homebrew packages
-export PKG_CONFIG_PATH="/usr/local/opt/openssl@3/lib/pkgconfig:/usr/local/opt/sqlite/lib/pkgconfig:/usr/local/opt/libssh2/lib/pkgconfig"
+# export PKG_CONFIG_PATH="/usr/local/opt/openssl@3/lib/pkgconfig:/usr/local/opt/sqlite/lib/pkgconfig:/usr/local/opt/libssh2/lib/pkgconfig"
 
 # Download aria2 source
 wget "https://github.com/aria2/aria2/releases/download/release-${VERSION}/aria2-${VERSION}.tar.gz"
@@ -50,12 +43,8 @@ cd "aria2-${VERSION}"
 ./configure \
     ${EXTRA_CONFIG} \
     --prefix=/usr/local \
-    --disable-shared \
     --enable-static \
     --without-libxml2 \
-    --without-gnutls \
-    --with-openssl \
-    --without-libgcrypt \
     --with-libcares \
     --with-libssh2 \
     --with-sqlite3 \

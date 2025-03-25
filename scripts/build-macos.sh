@@ -4,7 +4,7 @@ set -e
 # Get parameters
 VERSION=$1
 
-echo "Building aria2 v${VERSION} for macOS ${ARCH}"
+echo "Building aria2 v${VERSION} for macOS"
 
 # Create build directory
 mkdir -p build
@@ -70,6 +70,6 @@ strip src/aria2c
 # Copy binary to output directory
 cd ../..
 mkdir -p build
-cp "build/aria2-${VERSION}/src/aria2c" "build/aria2-${VERSION}-macos-${ARCH}"
+cp "build/aria2-${VERSION}/src/aria2c" "build/aria2-${VERSION}-macos"
 
-echo "Build completed: build/aria2-${VERSION}-macos-${ARCH}"
+echo "Build completed: build/aria2-${VERSION}-macos"

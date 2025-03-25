@@ -36,6 +36,9 @@ sudo apt install -y \
 # Verify libc-ares-dev location
 find /usr/lib /usr/lib/x86_64-linux-gnu -name "libcares*"
 
+# Soft link libcares static library
+sudo ln -s /usr/lib/x86_64-linux-gnu/libcares_static.a /usr/lib/x86_64-linux-gnu/libcares.a
+
 # Download aria2 source
 wget "https://github.com/aria2/aria2/releases/download/release-${VERSION}/aria2-${VERSION}.tar.gz"
 tar -xzf "aria2-${VERSION}.tar.gz"
@@ -48,7 +51,6 @@ cd "aria2-${VERSION}"
     --without-gnutls \
     --with-openssl \
     --without-libgcrypt \
-    --without-libcares \
     --with-libssh2 \
     --with-sqlite3 \
     --with-libz

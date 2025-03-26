@@ -31,7 +31,8 @@ sudo apt install -y \
     zlib1g-dev \
     libssh2-1-dev \
     libexpat1-dev \
-    liblzma-dev
+    liblzma-dev \
+    libuv1-dev
 
 # Soft link libcares static library
 echo "Host architecture: $(arch)"
@@ -48,7 +49,8 @@ cd "aria2-${VERSION}"
     --enable-static \
     --without-gnutls \
     --with-openssl \
-    --without-libgcrypt
+    --without-libgcrypt \
+    --with-libuv
 
 # Build
 make -j$(nproc)

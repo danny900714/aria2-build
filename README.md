@@ -38,7 +38,8 @@ The aria2 binaries are built with the following configuration:
 - c-ares for asynchronous DNS
 - SQLite3 for control file support
 - zlib for compression
-- libexpat for XML parsing
+- libxml2 for XML parsing
+- libuv for asynchronous I/O
 
 ## Build Scripts
 
